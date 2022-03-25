@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Material Design for Bootstrap</title>
+    <!-- MDB icon -->
+    <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+    />
+  
+    <!-- MDB -->
+    <link rel="stylesheet" href="css/mdb.min.css" />
+  </head>
+  <body>
+   <main>
+    <section class="intro">
+      <div class="mask d-flex align-items-center h-100" style="background-color: #D6D6D6;">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+              <div class="card" style="border-radius: 1rem;">
+                <div class="card-body p-5 text-center">
+                  <div class="my-md-5 pb-5">
+                    <h1 class="fw-bold mb-0" style="margin-bottom: 20px!important;">Login</h1>
+                    <form action="#" th:action="@{/login}" th:object="${user}" method="post" >
+                    <div class="form-outline mb-4">
+                      <input type="email" id="typeEmail" class="form-control form-control-lg" th:field = "*{username}"/>
+                      <label class="form-label" for="typeEmail">Email</label>
+                    </div>
+                    <div class="form-outline mb-5">
+                      <input type="password" id="typePassword" th:field = "*{password}" class="form-control form-control-lg" />
+                      <label class="form-label" for="typePassword">Password</label>
+                    </div>
+                    <button class="btn btn-primary btn-lg btn-rounded text-body px-5" type="submit" style="color:white!important">Login</button>
+                    </form>
+                  </div>
+
+                  <div>
+                    <p class="mb-0">Нет аккаунта? <a href="#!" class="text-body fw-bold">Зарегистрироваться</a></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+   </main>
+  </body>
+</html>
