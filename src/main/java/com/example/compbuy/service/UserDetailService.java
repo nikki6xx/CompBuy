@@ -15,44 +15,30 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Service
 @AllArgsConstructor
-public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
+public class UserDetailService implements org.springframework.security.core.userdetails.UserDetailsService{
 
     @Autowired
-    private UserRepository userRepository;
+    private UserServiceImpl userService;
 
-    @Autowired
-    private UserService userService;
-
-
-
-    @SuppressWarnings("SpringConfigurationProxyMethods")
-    @PostConstruct
-    public void init() {
-        if (!userService.findByUsername("user").isPresent()) {
-            User user = new User();
-            user.setUsername("user");
-            user.setPassword("1234");
-            user.setRole("ADMIN");
-            userService.save(user);
-        }
-    }
 
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        User user = userRepository
+        User user = userService
                 .findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not Founded"));
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet();
 
-        grantedAuthorities.add(new SimpleGrantedAuthority((user.getRole())));
+        grantedAuthorities.add(new SimpleGrantedAuthority("USER"));
+        grantedAuthorities.add(new SimpleGrantedAuthority("ADMIN"));
         return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),grantedAuthorities);
     }
 }

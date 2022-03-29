@@ -7,5 +7,15 @@
       height: auto;
     }
   }
+#errorConfPass{
+  display: none;
+  color: red;
+}
+
+
+
+
+
+
 
  

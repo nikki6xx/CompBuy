@@ -26,47 +26,49 @@
   <div class="card">
   <header class="card-header d-flex justify-content-between" >
     <h4 class="card-title mt-2">Регистрация</h4>
-    <a href="" class="float-right btn btn-outline-primary mt-1">Войти</a>
+    <a href="/login" class="float-right btn btn-outline-primary mt-1">Войти</a>
   </header>
   <article class="card-body">
-  <form th:action="@{/registration}" th:object="${user}" method="post">
+  <form th:action="@{/registration}" th:object="${user}" method="post" id="register">
     <div class="form-row">
       <div class="col form-group">
         <label>Имя пользователя</label>   
           <input type="text" class="form-control" placeholder="" th:field = "*{username}">
-          <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</div>
+          <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" style="color: red">Username error</div>
       </div> <!-- form-group end.// -->
     </div> <!-- form-row end.// -->
     <div class="form-group">
       <label>Email адресс</label>
       <input type="email" class="form-control" placeholder="" th:field = "*{email}">
-      <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>
+      <div th:if="${#fields.hasErrors('email')}" th:errors="*{email} " style="color: red">Email error</div>
     </div> <!-- form-group end.// -->
     <div class="form-group">
       <label>Введите пароль</label>
         <input class="form-control" type="password" id="myPassword" th:field = "*{password}" >
-        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</div>
+        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"  style="color: red">Password error</div>
     </div> <!-- form-group end.// -->  
     <div class="form-group">
       <label>Повторите пароль</label>
 
-        <input class="form-control" type="password" id="myPasswordConf" th:field = "*{confirmPassword}">
-    </div> <!-- form-group end.// --> 
+        <input class="form-control" type="password" id="myPasswordConf"  >
+        <div id="errorConfPass"> Пароль не совпадает</div>
+       </div> <!-- form-group end.// -->
       <div class="form-group">
-          <button type="submit" class="btn btn-primary btn-block" style="margin-top: 15px;"> Зарегистрироваться</button>
+          <button type="submit" class="btn btn-primary btn-block" style="margin-top: 15px;" id="registerButton"> Зарегистрироваться</button>
       </div> <!-- form-group// -->      
       <small class="text-muted" style="margin-top: 15px;">Нажимая на кнопку "Регистрация", вы подтверждаете, что принимаете наши <br> условия использования и политику конфиденциальности.</small>                                          
   </form>
   </article> <!-- card-body end .// -->
-  <div class="border-top card-body text-center">Есть аккаунт? <a href="">Войти</a></div>
+  <div class="border-top card-body text-center">Есть аккаунт? <a href="/login">Войти</a></div>
   </div> <!-- card.// -->
   </div> <!-- col.//-->
   
   </div> <!-- row.//-->
   
    </main>
-
-   <script src="static/src/js/jquery-3.2.1.min.js"></script>
-   <script src="static/js/js1.js"></script>
+   <script type="text/javascript" src="js/mdb.min.js"></script>
+   <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+   <!-- Custom scripts -->
+   <script type="text/javascript" src="js/js1.js"></script>
   </body>
 </html>

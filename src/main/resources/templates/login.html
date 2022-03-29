@@ -16,6 +16,7 @@
     />
   
     <!-- MDB -->
+    <link rel="stylesheet" href="css/style1.css">
     <link rel="stylesheet" href="css/mdb.min.css" />
   </head>
   <body>
@@ -29,10 +30,11 @@
                 <div class="card-body p-5 text-center">
                   <div class="my-md-5 pb-5">
                     <h1 class="fw-bold mb-0" style="margin-bottom: 20px!important;">Login</h1>
+                    <div th:if="${error}" style="color:red">Неправильно введен пароль или имя пользователя.</div>
                     <form action="#" th:action="@{/login}" th:object="${user}" method="post" >
                     <div class="form-outline mb-4">
-                      <input type="email" id="typeEmail" class="form-control form-control-lg" th:field = "*{username}"/>
-                      <label class="form-label" for="typeEmail">Email</label>
+                      <input type="text" id="typeEmail" class="form-control form-control-lg" th:field = "*{username}" value="email"/>
+                      <label class="form-label" for="typeEmail">Username</label>
                     </div>
                     <div class="form-outline mb-5">
                       <input type="password" id="typePassword" th:field = "*{password}" class="form-control form-control-lg" />
@@ -43,7 +45,7 @@
                   </div>
 
                   <div>
-                    <p class="mb-0">Нет аккаунта? <a href="#!" class="text-body fw-bold">Зарегистрироваться</a></p>
+                    <p class="mb-0">Нет аккаунта? <a href="/registration" class="text-body fw-bold">Зарегистрироваться</a></p>
                   </div>
                 </div>
               </div>
@@ -53,5 +55,7 @@
       </div>
     </section>
    </main>
+   <script type="text/javascript" src="js/mdb.min.js"></script>
   </body>
+
 </html>
