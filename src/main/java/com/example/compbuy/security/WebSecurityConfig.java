@@ -29,10 +29,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/","/user","/user/profile").permitAll();
+        http.authorizeRequests().antMatchers("/","/user","/user","/user/profile","/admin/addProducts","/addProducts").permitAll();
         http.authorizeRequests().antMatchers("/registration","/login").permitAll();
-        http.authorizeRequests().antMatchers("/logout").permitAll();
+        http.authorizeRequests().antMatchers("/logout","/h2").permitAll();
         http.csrf().disable();
+        http.headers().frameOptions().disable();
         http.formLogin()
                 .loginPage("/login")
                 .usernameParameter("username")//
@@ -40,7 +41,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/")
                 .failureForwardUrl("/loginError")
                 // Config for Logout Page
-                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/");
+                .and()
+                .logout()
+                .clearAuthentication(true)
+                .deleteCookies("JSESSIONID")
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/");
     }
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{

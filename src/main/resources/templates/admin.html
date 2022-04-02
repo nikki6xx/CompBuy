@@ -15,9 +15,10 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
     />
     <!-- MDB -->
-    <link rel="stylesheet" href="css/mdb.min.css" />
-    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" th:href="@{~/css/mdb.min.css}" />
+    <link rel="stylesheet" th:href="@{~/style1.css}">
     <script src="https://kit.fontawesome.com/57e0b24151.js" crossorigin="anonymous"></script>
+
   </head>
   <body>
     <header>
@@ -164,60 +165,20 @@
 
       </div>
       </div>
-      <div class="main-center " style="margin-top: 20px; margin-left: 20px" >
-        <div class="row row-cols-1 row-cols-md-5 g-4">
-          <div class="col">
-            <a href="#">
-            <div class="card h-100">
-              <img th:src="@{~/img/pr_nt.jpg}" class="card-img-top" />
-              <div class="card-body">
-                <h5 class="card-title">Ноутбуки</h5>
-
-              </div>
-            </div>
-            </a>
-          </div>
-          <div class="col">
-            <a href="#">
-            <div class="card h-100">
-              <img th:src="@{~/img/pr_vd.jpg}" class="card-img-top" />
-              <div class="card-body">
-                <h5 class="card-title">Видеокарты</h5>
-              </div>
-            </div>
-            </a>
-          </div>
-          <div class="col">
-            <a href="#">
-            <div class="card h-100">
-              <img th:src="@{~/img/pr_cmp.jpg}"  class="card-img-top"/>
-              <div class="card-body">
-                <h5 class="card-title">Компьютеры</h5>
-              </div>
-            </div>
-            </a>
-          </div>
-        </div>
-
-        <div>
-
-          <p>
-            <H5>О компании CompBuy.BY</H5>
-              <p>Мы - бурно развивающаяся компания с опытом за плечами, ответственным отношением к клиентам и неизменно высоким качеством работы.</p>
-              <p>На нашем сайте вы можете выбрать наиболее подходящее и оптимальное решение , найти нужную технику по вкусной цене и получить исчерпывающую консультацию от наших менеджеров.</p>
-              <p>Кроме этого мы предоставляем услуги гарантийного и после гарантийного ремонта и обслуживания техники, чем выгодно отличаемся от многих интернет магазинов компьютерной техники!</p>
-              <p>Доверьтесь нам - профессионалам с 5-ти летним опытом работы на рынке компьютерной и цифровой техники , и мы станем лучшими друзьями и деловыми партнерами!</p>
-          </p>
-
-
-
+      
+      <div class="col-md-5 " style="margin-top: 20px;margin-left: 100px;">
+        <form action="#" th:action="@{/admin/addProduct}" th:object="${product}" method="post">
+          <ul class="list-group">
+            <li class="list-group-item"> Тип предмета: <input type="text" placeholder="Компьютер,ноутбук и т.д" th:field="*{type}"></li>
+            <li class="list-group-item">  Наименование: <input type="text" placeholder="GTX-1050TI" th:field="*{name}"></li>
+            <li class="list-group-item">  Описание: <input type="text" th:field="*{text}"></li>
+            <li class="list-group-item">  Цена: <input type="text" th:field="*{price}"></li>
+            <li class="list-group-item"> Изображение: <input id="input-b2" name="input-b1" type="file" class="file" data-browse-on-zone-click="true" th:field="*{image}"></li>
+          </ul>
+          <input type="submit" class="btn btn-primary">
+        </form>
       </div>
 
-
-
-
-
-      </div>
     </main>
     <footer class="text-center text-white" style="background-color: #f1f1f1;">
         <!-- Grid container -->

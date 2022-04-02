@@ -29,12 +29,13 @@
     <a href="/login" class="float-right btn btn-outline-primary mt-1">Войти</a>
   </header>
   <article class="card-body">
-  <form th:action="@{/registration}" th:object="${user}" method="post" id="register">
+  <form th:action="@{/registration}" th:object="${user}"  method="post" id="register">
     <div class="form-row">
       <div class="col form-group">
         <label>Имя пользователя</label>   
           <input type="text" class="form-control" placeholder="" th:field = "*{username}">
           <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" style="color: red">Username error</div>
+          <div th:if="${logError}" style="color: red">Данное имя пользователя уже занято</div>
       </div> <!-- form-group end.// -->
     </div> <!-- form-row end.// -->
     <div class="form-group">

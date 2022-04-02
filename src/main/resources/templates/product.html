@@ -15,8 +15,8 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
     />
     <!-- MDB -->
-    <link rel="stylesheet" href="css/mdb.min.css" />
-    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" th:href="@{~/css/mdb.min.css}" />
+    <link rel="stylesheet" th:href="@{~/style1.css}">
     <script src="https://kit.fontawesome.com/57e0b24151.js" crossorigin="anonymous"></script>
   </head>
   <body>
@@ -112,112 +112,39 @@
           </nav>
 <!-- Navbar -->
     </header>
-    <main class="d-flex" style="margin-top: 70px">
-      <div class="main-right col-md-2">
-
-        <div class="col-md-10" style="margin-left: 20px;margin-top: 20px;">
-          <div class="list-group dropend" >
-
-              <button type="button" class="list-group-item list-group-item-action dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" aria-current="false">Комплектующие</button>
-              <ul class="dropdown-menu">
-                <li><a href="" class="dropdown-item">Видеокарты</a></li>
-                <li><a href="" class="dropdown-item">Материнские платы</a></li>
-                <li><a href="" class="dropdown-item">Процессоры</a></li>
-                <li><a href="" class="dropdown-item">Оперативная память</a></li>
-              </ul>
-
-
-            <button type="button" class="list-group-item list-group-item-action dropdown-toggle" data-bs-toggle="dropdown">Аксессуары</button>
-            <ul class="dropdown-menu">
-              <li><a href="" class="dropdown-item">Наушники</a></li>
-              <li><a href="" class="dropdown-item">Чехлы</a></li>
-              <li><a href="" class="dropdown-item">Коврики</a></li>
-              <li><a href="" class="dropdown-item">Мышки</a></li>
-            </ul>
-
-            <button type="button" class="list-group-item list-group-item-action">Мониторы</button>
-            <button type="button" class="list-group-item list-group-item-action">Игровые консоли</button>
-            <button type="button" class="list-group-item list-group-item-action dropdown-toggle" data-bs-toggle="dropdown">Носители информации</button>
-            <ul class="dropdown-menu">
-              <li><a href="" class="dropdown-item">ssd</a></li>
-              <li><a href="" class="dropdown-item">hdd</a></li>
-            </ul>
-
-            <button type="button" class="list-group-item list-group-item-action">Электропитание</button>
-            <button type="button" class="list-group-item list-group-item-action">Техника для печати</button>
+    <main class="d-flex" th:object="${product}" style="margin-top: 70px">
+      <<div class="site-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <img src="#" alt="Image" class="img-fluid">
           </div>
-        </div>
+          <div class="col-md-6">
+            <h2 class="text-black" th:text="*{name}"></h2>
+            <p th:text="*{text}"></p>
+            <p><strong class="text-primary h4" th:text="*{price}">руб.</strong></p>
+            <form th:action="@{/product/{id}(id = ${product.id})}" method="post">
+            <div class="mb-5">
+              <div class="input-group mb-3" style="max-width: 300px;">
 
-        <div class="d-flex flex-column col-md-11" style="margin-left: 20px; margin-top: 20px; border: 1px solid #DFDFDF;border-radius:12px;padding: 20px" >
-          <div>
-            <h6>Будьте всегда в курсе!</h6>
-          </div>
-          <div style="margin-bottom: 8px">
-            Узнавайте о скидках и акциях первым
-          </div>
-          <div>
-            <form action="/" method="post">
-              <input type="text" placeholder="Ваш e-mail" style="margin-bottom: 8px; border-radius: 5px; border-color: #DFDFDF">
-              <input type="submit" class="btn btn-primary">
+                <div class="input-group-prepend">
+                  <button class="btn btn-outline-primary js-btn-minus" type="button">−</button>
+                </div>
+                <input type="text" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-primary js-btn-plus" type="button">+</button>
+                </div>
+              </div>
+              </div>
+              <p>
+              <input type="submit" class="buy-now btn  btn-primary" text="Добавить в корзину">
+            </p>
             </form>
           </div>
-
-      </div>
-      </div>
-      <div class="main-center " style="margin-top: 20px; margin-left: 20px" >
-        <div class="row row-cols-1 row-cols-md-5 g-4">
-          <div class="col">
-            <a href="#">
-            <div class="card h-100">
-              <img th:src="@{~/img/pr_nt.jpg}" class="card-img-top" />
-              <div class="card-body">
-                <h5 class="card-title">Ноутбуки</h5>
-
-              </div>
-            </div>
-            </a>
-          </div>
-          <div class="col">
-            <a href="#">
-            <div class="card h-100">
-              <img th:src="@{~/img/pr_vd.jpg}" class="card-img-top" />
-              <div class="card-body">
-                <h5 class="card-title">Видеокарты</h5>
-              </div>
-            </div>
-            </a>
-          </div>
-          <div class="col">
-            <a href="#">
-            <div class="card h-100">
-              <img th:src="@{~/img/pr_cmp.jpg}"  class="card-img-top"/>
-              <div class="card-body">
-                <h5 class="card-title">Компьютеры</h5>
-              </div>
-            </div>
-            </a>
-          </div>
         </div>
-
-        <div>
-
-          <p>
-            <H5>О компании CompBuy.BY</H5>
-              <p>Мы - бурно развивающаяся компания с опытом за плечами, ответственным отношением к клиентам и неизменно высоким качеством работы.</p>
-              <p>На нашем сайте вы можете выбрать наиболее подходящее и оптимальное решение , найти нужную технику по вкусной цене и получить исчерпывающую консультацию от наших менеджеров.</p>
-              <p>Кроме этого мы предоставляем услуги гарантийного и после гарантийного ремонта и обслуживания техники, чем выгодно отличаемся от многих интернет магазинов компьютерной техники!</p>
-              <p>Доверьтесь нам - профессионалам с 5-ти летним опытом работы на рынке компьютерной и цифровой техники , и мы станем лучшими друзьями и деловыми партнерами!</p>
-          </p>
-
-
-
       </div>
+    </div>
 
-
-
-
-
-      </div>
     </main>
     <footer class="text-center text-white" style="background-color: #f1f1f1;">
         <!-- Grid container -->
@@ -258,6 +185,15 @@
     <script type="text/javascript" src="js/mdb.min.js"></script>
     <!-- Custom scripts -->
     <script type="text/javascript"></script>
+    <script>
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', '/img/red-dot');
+      xhr.onload = function() {
+        var img = document.getElementById("red-dot");
+        img.src = xhr.responseText;
+      };
+      xhr.send();
+    </script>
     
   </body>
 </html>

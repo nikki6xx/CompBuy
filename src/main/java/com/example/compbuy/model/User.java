@@ -1,32 +1,28 @@
 package com.example.compbuy.model;
 
 import lombok.*;
-import org.hibernate.*;
+import org.hibernate.annotations.Cascade;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
-
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.security.Principal;
+import java.util.List;
 
 
 @Getter
 @Setter
-@ToString
 @EqualsAndHashCode
 @AllArgsConstructor
 @Entity
-@Table(name = "USER")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name= "USERNAME")
-
     @Size(min = 3, message = "Имя пользователя должно быть больше 3")
     private String username;
 
@@ -38,15 +34,37 @@ public class User {
     @Column(name = "EMAIL")
     @Email(message = "Некорректно введен email.")
     private String email;
-
-    private Boolean isAct = false;
+    @Column(name = "ROLE")
     private String role;
+
+
+    @Column(name = "first_name")
+    private String name;
+    @Column(name = "last_name")
+    private String lastName;
+    @Column(name = "home")
+    private String home;
+    private String postcode;
+    private String MbNumber;
+
+
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name ="basket_id")
+    private Basket basket;
+
+    @OneToMany(mappedBy = "user")
+    private List<Order> order;
+
+
 
     public User() {
 
     }
 
+
+    @Transient
     private boolean isLog = isUserLoggedIn();
+
 
 
     public boolean isUserLoggedIn() {

@@ -14,6 +14,8 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
     />
+    <
+
     <script src="https://kit.fontawesome.com/57e0b24151.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../static/css/profile.css"
           th:href="@{~/css/profile.css}"/>
@@ -24,7 +26,7 @@
   <body>
   <header>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light ">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
       <!-- Container wrapper -->
       <div class="container-fluid " style="margin-left: 150px; margin-right: 150px;">
         <!-- Toggle button -->
@@ -49,7 +51,7 @@
           <!-- Left links -->
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="#">Главная</a>
+              <a class="nav-link" href="/">Главная</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Готовые сборки</a>
@@ -115,37 +117,97 @@
     </nav>
     <!-- Navbar -->
   </header>
-  <div class="d-flex">
-  <div class="container rounded bg-white mt-5 mb-5" th:object="${user}">
-    <div class="row">
 
-      <div class="col-md-5 border-right">
-        <div class="p-3 py-5">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4 class="text-right">Настройки профиля</h4>
+
+
+
+  <main>
+
+    <div class="container" style="margin-top: 100px">
+      <div class="row mb-5">
+        <form class="col-md-12" method="post">
+          <div class="site-blocks-table">
+            <table class="table table-bordered">
+              <thead>
+              <tr>
+                <th class="product-thumbnail">Image</th>
+                <th class="product-name">Product</th>
+                <th class="product-price">Price</th>
+                <th class="product-quantity">Quantity</th>
+                <th class="product-total">Total</th>
+                <th class="product-remove">Remove</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="product : ${products}">
+                <td class="product-thumbnail">
+                  <img src="images/cloth_1.jpg" alt="Image" class="img-fluid">
+                </td>
+                <td class="product-name">
+                  <h2 class="h5 text-black" th:text="${product.name}"></h2>
+                </td>
+                <td th:text="${product.price}"></td>
+                <td style="padding-right: 22px;width: 346.4px;">
+                  <div class="input-group mb-3" style="max-width: 300px;">
+                    <input type="text" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                  </div>
+
+                </td>
+                <td ></td>
+                <form th:action="@{/busket/item/{id}(id = ${product.id})}" method="post">
+                <td><input type="submit" class="btn btn-primary btn-sm" value="Удалить"></td>
+                </form>
+              </tr>
+              </tbody>
+            </table>
           </div>
-
-          <form action="#" th:action="@{/user/profile}" method="post">
-            <div class="row mt-2">
-              <div class="col-md-6"><label class="labels">Имя</label><input type="text" class="form-control" placeholder="Имя" th:field="*{name}" th:value="*{name}" name="name"></div>
-              <div class="col-md-6"><label class="labels">Фамилия</label><input type="text" class="form-control" th:value="*{lastName}" th:field="*{lastName}"  placeholder="Фамилия" name="lastName"></div>
-            </div>
-            <div class="row mt-3">
-              <div class="col-md-12"><label class="labels">Номер телефона</label><input type="text" class="form-control" placeholder="номер телефона" th:value="*{mbNumber}" th:field="*{mbNumber}" name="number"></div>
-              <div class="col-md-12"><label class="labels">Адресс</label><input type="text" class="form-control" placeholder="адресс" th:value="*{home}" th:field="*{home}" name="home"></div>
-              <div class="col-md-12"><label class="labels">Посткод</label><input type="text" class="form-control" placeholder="посткод" th:value="*{postcode}" th:field="*{postcode}" name="postcode"></div>
-              <div class="col-md-12"><label class="labels">Email</label><input type="text" class="form-control" placeholder="email" th:value="*{email}" name="email"  ></div>
-            </div>
-
-              <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
-          </form>
-        </div>
+        </form>
       </div>
 
+      <div class="row"  style="justify-content: flex-end">
+        <div class="col-md-6">
+          <div class="row justify-content-end">
+            <div class="col-md-7">
+              <div class="row">
+                <div class="col-md-12 text-right border-bottom mb-5">
+                  <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <span class="text-black">Subtotal</span>
+                </div>
+                <div class="col-md-6 text-right">
+                  <strong class="text-black">$230.00</strong>
+                </div>
+              </div>
+              <div class="row mb-5">
+                <div class="col-md-6">
+                  <span class="text-black">Total</span>
+                </div>
+                <div class="col-md-6 text-right">
+                  <strong class="text-black">$230.00</strong>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <button class="btn btn-primary btn-lg py-3 btn-block" onclick="window.location='checkout.html'">Proceed To Checkout</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  </div>
-  <footer class="text-center text-white" style="background-color: #f1f1f1;">
+
+
+
+
+
+  </main>
+
+  <footer class="text-center text-white" style="background-color: #f1f1f1; margin-top: 40px">
     <!-- Grid container -->
     <div class="container pt-4">
       <!-- Section: Social media -->
@@ -183,7 +245,7 @@
       <script type="text/javascript"   src="js/jquery-3.2.1.min.js"></script>
       <!-- Custom scripts -->
       <script type="text/javascript" src="js/js1.js"></script>
-    </footer>
+
 
   </body>
 </html>

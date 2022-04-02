@@ -1,10 +1,15 @@
 package com.example.compbuy.controllers;
 
+import com.example.compbuy.model.Basket;
+import com.example.compbuy.model.Product;
 import com.example.compbuy.model.User;
+import com.example.compbuy.service.BasketService;
+import com.example.compbuy.service.ProductService;
 import com.example.compbuy.service.UserDetailService;
 
 import com.example.compbuy.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +23,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import javax.xml.ws.Response;
 import java.security.Principal;
+import java.util.ArrayList;
 
 
 @Controller
@@ -30,6 +37,12 @@ public class MainController {
     @Autowired
     private UserDetailService userDetailsService;
 
+    @Autowired
+    private ProductService productService;
+
+
+    @Autowired
+    private BasketService basketService;
 
     @GetMapping("/registration")
     public ModelAndView getRegPAge(){
@@ -38,13 +51,25 @@ public class MainController {
         return mav;
     }
     @PostMapping("/registration")
-    public String createUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult){
+    public String createUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,Model model){
         System.out.println(bindingResult.toString());
+        System.out.println(user.getUsername());
+        if (!userService.findByUsername(user.getUsername()).isEmpty()) {
+            model.addAttribute("logError",true);
+            return "register";
+        }
         if (bindingResult.hasErrors()) return "register";
         user.setRole("USER");
+        Basket basket = new Basket();
+        basket.setUser(user);
+        user.setBasket(basket);
+        basket.setProduct(new ArrayList<>());
         userService.save(user);
+        basketService.save(basket);
         return "redirect:/login";
     }
+
+
 
 
     @GetMapping("/")
@@ -78,7 +103,6 @@ public class MainController {
         }
         return "redirect:/";
     }
-
 
 
 }
